@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+.ipynb_checkpoints/
+.DS_Store
+
+# Local copies of the Kaggle flower images. The script's default path is
+# D:/Image_data/flowers, which is outside this repo.
+/flowers/
+/Image_data/
+
+# The checked-in 7-Zip installer and Tesseract-OCR.7z volumes stay tracked
+# until a verified external backup exists. Do not ignore them here.

@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python - << 'PY'
+          from pathlib import Path
+          lines = Path("requirements.txt").read_text().splitlines()
+          kept = []
+          for line in lines:
+              stripped = line.strip()
+              if stripped.startswith("tensorflow"):
+                  continue
+              kept.append(line)
+          Path("/tmp/requirements-ci.txt").write_text("\n".join(kept) + "\n")
+          PY
+          python -m pip install -r /tmp/requirements-ci.txt -r requirements-dev.txt
+      - name: Lint
+        run: python -m ruff check .
+      - name: Format
+        run: python -m ruff format --check .
+      - name: Test
+        run: python -m pytest -q

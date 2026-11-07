@@ -1,0 +1,9 @@
+# Runtime dependencies for flower_data.py.
+# CI installs every line except tensorflow. The tests do not download flower
+# images and do not run the default 30-epoch training command.
+numpy>=1.26
+pandas>=2.2
+Pillow>=10
+scikit-learn>=1.4
+matplotlib>=3.8
+tensorflow>=2.16
